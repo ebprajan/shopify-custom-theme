@@ -1,0 +1,70 @@
+{%- style -%}
+  .hero {
+    background-image: url({{ section.settings.background_image | image_url: width: 2000 }});
+    background-size: cover;
+    background-position: center;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: {{ section.settings.text_color }};
+  }
+{%- endstyle -%}
+
+<div class="hero">
+  <div class="hero__content">
+    <h1 class="hero__title">{{ section.settings.title }}</h1>
+    <p class="hero__text">{{ section.settings.text }}</p>
+    <a href="{{ section.settings.button_link }}" class="button button--primary">
+      {{ section.settings.button_text }}
+    </a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Welcome to our store",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "default": "Discover our amazing products",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "default": "Shop Now",
+      "label": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %} 

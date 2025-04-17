@@ -1,0 +1,55 @@
+{%- assign product_card = product | default: card_product -%}
+{%- assign media = product_card.featured_media -%}
+
+<div class="product-card">
+  <a href="{{ product_card.url }}" class="product-card__link">
+    <div class="product-card__media">
+      {%- if media != blank -%}
+        {{ media | image_url: width: 400 | image_tag:
+          loading: 'lazy',
+          width: 400,
+          height: 400,
+          alt: media.alt | escape
+        }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </div>
+
+    <div class="product-card__content">
+      <h3 class="product-card__title">{{ product_card.title }}</h3>
+      
+      <div class="product-card__price">
+        {%- if product_card.compare_at_price > product_card.price -%}
+          <span class="product-card__price--compare">{{ product_card.compare_at_price | money }}</span>
+        {%- endif -%}
+        <span class="product-card__price--current">{{ product_card.price | money }}</span>
+      </div>
+
+      {%- if product_card.variants.size > 1 -%}
+        <div class="product-card__variants">
+          {%- for option in product_card.options_with_values -%}
+            <div class="product-card__option">
+              <span class="product-card__option-name">{{ option.name }}:</span>
+              <span class="product-card__option-value">{{ option.values | join: ' / ' }}</span>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </a>
+</div>
+
+{% schema %}
+{
+  "name": "Product Card",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_variants",
+      "label": "Show variants",
+      "default": true
+    }
+  ]
+}
+{% endschema %} 

@@ -1,0 +1,82 @@
+<footer class="footer">
+  <div class="footer__content container">
+    <div class="footer__blocks">
+      {%- for block in section.blocks -%}
+        <div class="footer__block" {{ block.shopify_attributes }}>
+          {%- case block.type -%}
+            {%- when 'text' -%}
+              <div class="footer__text">
+                <h2 class="footer__heading">{{ block.settings.heading }}</h2>
+                <div class="footer__text-content">{{ block.settings.text }}</div>
+              </div>
+            {%- when 'link_list' -%}
+              <div class="footer__links">
+                <h2 class="footer__heading">{{ block.settings.heading }}</h2>
+                <ul class="footer__list">
+                  {%- for link in block.settings.menu.links -%}
+                    <li>
+                      <a href="{{ link.url }}" class="footer__link">{{ link.title }}</a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+          {%- endcase -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "About the store",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Share store details, promotions, or brand content with your customers.</p>",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "link_list",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Quick links",
+          "label": "Heading"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "default": "footer",
+          "label": "Menu"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "text"
+      },
+      {
+        "type": "link_list"
+      }
+    ]
+  }
+}
+{% endschema %} 

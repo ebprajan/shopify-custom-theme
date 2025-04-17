@@ -1,0 +1,55 @@
+<div class="newsletter-signup">
+  <div class="newsletter-signup__content">
+    <h2 class="newsletter-signup__title">{{ section.settings.title }}</h2>
+    <p class="newsletter-signup__text">{{ section.settings.text }}</p>
+    
+    <form class="newsletter-signup__form" action="/contact#contact_form" method="post">
+      <input type="hidden" name="form_type" value="customer">
+      <input type="hidden" name="utf8" value="✓">
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      
+      <div class="newsletter-signup__input-group">
+        <input
+          type="email"
+          name="contact[email]"
+          class="newsletter-signup__input"
+          value="{{ form.email }}"
+          aria-required="true"
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email"
+          placeholder="{{ 'newsletter.label' | t }}"
+          required
+        >
+        <button type="submit" class="button button--primary newsletter-signup__button">
+          {{ 'newsletter.button_label' | t }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Newsletter Signup",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Subscribe to our newsletter",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "default": "Be the first to know about new collections and exclusive offers.",
+      "label": "Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter Signup"
+    }
+  ]
+}
+{% endschema %} 
