@@ -19,3 +19,4 @@ Thumbs.db
 # Shopify theme files
 config.yml
 config/settings_data.json 
+.shopify

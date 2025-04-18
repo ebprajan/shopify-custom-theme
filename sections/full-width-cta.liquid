@@ -1,0 +1,202 @@
+{%- style -%}
+  .full-width-cta {
+    position: relative;
+    padding: 100px 20px;
+    background-size: cover;
+    background-position: center;
+    background-image: url({{ section.settings.background_image | image_url: width: 2000 }});
+    color: {{ section.settings.text_color }};
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  .full-width-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: {{ section.settings.overlay_color }};
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+  }
+
+  .full-width-cta__content {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .full-width-cta__title {
+    font-size: {{ section.settings.title_size }}px;
+    margin-bottom: 20px;
+  }
+
+  .full-width-cta__description {
+    font-size: {{ section.settings.description_size }}px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+  }
+
+  .full-width-cta__button {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: {{ section.settings.button_background }};
+    color: {{ section.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .full-width-cta__button:hover {
+    background-color: {{ section.settings.button_background | color_darken: 10 }};
+    transform: translateY(-2px);
+  }
+
+  @media screen and (max-width: 749px) {
+    .full-width-cta {
+      padding: 60px 20px;
+    }
+
+    .full-width-cta__title {
+      font-size: {{ section.settings.title_size | times: 0.8 }}px;
+    }
+
+    .full-width-cta__description {
+      font-size: {{ section.settings.description_size | times: 0.9 }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="full-width-cta">
+  <div class="full-width-cta__content">
+    {%- if section.settings.title != blank -%}
+      <h2 class="full-width-cta__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.description != blank -%}
+      <div class="full-width-cta__description">{{ section.settings.description }}</div>
+    {%- endif -%}
+
+    {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
+      <a href="{{ section.settings.button_link }}" class="full-width-cta__button">
+        {{ section.settings.button_text }}
+      </a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Full Width CTA",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Call to Action Title"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Add a compelling description to encourage your customers to take action.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title Size",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description Size",
+      "default": 18
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Full Width CTA"
+    }
+  ]
+}
+{% endschema %} 
